@@ -14,6 +14,8 @@ Dice *rollTheDice();
 
 void tellUserDieValue(Die *die, int index);
 
+void letUserSaveDice(Dice *pDice);
+
 Playerlist *letUserInitializeAllPlayers(int amountOfPlayers) {
     Playerlist *playerlist = createPlayerList(amountOfPlayers);
     forEachPlayerIn(playerlist, letUserInitializePlayer);
@@ -43,7 +45,34 @@ int letUserChooseAmountOfPlayers() {
     return amountOfPlayers;
 }
 
+void understanding_pointers() {
+    int variable = 1;
+    printf("| %-50s | %-30s | %-20s \n", "declaration", "access", "value");
+    printf("-----------------------------------------------------------------------------------------------\n");
+    printf("| %-50s | %-30s | %-20d \n", "int variable = 1", "variable", variable);
+    printf("| %-50s | %-30s | %-20p \n", "int variable = 1", "&variable", &variable);
+    printf("-----------------------------------------------------------------------------------------------\n");
+    int *variablePointer = &variable;
+
+    printf("| %-50s | %-30s | %-20p \n", "int* variablePointer = &variable", "&variablePointer", &variablePointer);
+    printf("| %-50s | %-30s | %-20p \n", "int* variablePointer = &variable", "variablePointer", variablePointer);
+    printf("| %-50s | %-30s | %-20d \n", "int* variablePointer = &variable", "*variablePointer", *variablePointer);
+    printf("-----------------------------------------------------------------------------------------------\n");
+    int **variablePointerPointer = &variablePointer;
+
+    printf("| %-50s | %-30s | %-20p \n", "int ** variablePointerPointer = &variablePointer", "&variablePointerPointer",
+           &variablePointerPointer);
+    printf("| %-50s | %-30s | %-20p \n", "int ** variablePointerPointer = &variablePointer", "variablePointerPointer",
+           variablePointerPointer);
+    printf("| %-50s | %-30s | %-20d \n", "int ** variablePointerPointer = &variablePointer", "**variablePointerPointer",
+           **variablePointerPointer);
+    printf("| %-50s | %-30s | %-20p \n", "int ** variablePointerPointer = &variablePointer", "*variablePointerPointer",
+           *variablePointerPointer);
+    printf("\n\n\n\n");
+}
+
 int main() {
+    understanding_pointers();
     srand(time(NULL));
     printf("Welcome to Yahtzee!\n");
     printf("---------------------------------\n");
@@ -63,6 +92,20 @@ void tellUserToRollTheDice(Player *player, int index) {
     Dice *dice = rollTheDice();
     printf("Nice one! You rolled: ");
     forEachDieIn(dice, tellUserDieValue);
+    letUserSaveDice(dice);
+}
+
+void letUserSaveDice(Dice *Dice) {
+    char **savedDice = NULL;
+    char *userInput = malloc(20);
+    printf("\nWhich one do you want to save?");
+    scanf("%20s", userInput);
+    savedDice = split2(userInput, ",");
+    printf("You have chosen: ");
+    for (savedDice; *savedDice != '\0'; ++savedDice) {
+        printf("%s ", *savedDice);
+    }
+    printf(" to save");
 }
 
 void tellUserDieValue(Die *die, int index) {
@@ -71,5 +114,6 @@ void tellUserDieValue(Die *die, int index) {
     else
         printf("%d ", die->value);
 }
+
 
 
