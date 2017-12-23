@@ -1,8 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Player.h"
+#include "Die.h"
 
 void letUserInitializePlayer(Player *player, int index);
+
+void playRound(Playerlist *pPlayerlist);
+
+void tellUserToRollTheDice(Player *player, int index);
+
+Dice *rollTheDice();
+
+void tellUserDieValue(Die *die, int index);
 
 Playerlist *letUserInitializeAllPlayers(int amountOfPlayers) {
     Playerlist *playerlist = createPlayerList(amountOfPlayers);
@@ -34,10 +44,32 @@ int letUserChooseAmountOfPlayers() {
 }
 
 int main() {
+    srand(time(NULL));
     printf("Welcome to Yahtzee!\n");
     printf("---------------------------------\n");
     int amoutnOfPlayers = letUserChooseAmountOfPlayers();
     Playerlist *playerlist = letUserInitializeAllPlayers(amoutnOfPlayers);
     forEachPlayerIn(playerlist, tellUserPlayerData);
+    playRound(playerlist);
     return 0;
 }
+
+void playRound(Playerlist *playerlist) {
+    forEachPlayerIn(playerlist, tellUserToRollTheDice);
+}
+
+void tellUserToRollTheDice(Player *player, int index) {
+    printf("%s (Player %d) is rolling the dice...\n", player->name, index++);
+    Dice *dice = rollTheDice();
+    printf("Nice one! You rolled: ");
+    forEachDieIn(dice, tellUserDieValue);
+}
+
+void tellUserDieValue(Die *die, int index) {
+    if (index < 4)
+        printf("%d, ", die->value);
+    else
+        printf("%d ", die->value);
+}
+
+
