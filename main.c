@@ -3,6 +3,7 @@
 #include <time.h>
 #include "Player.h"
 #include "Die.h"
+#include "Utils.h"
 
 void letUserInitializePlayer(Player *player, int index);
 
@@ -100,7 +101,7 @@ void letUserSaveDice(Dice *Dice) {
     char *userInput = malloc(20);
     printf("\nWhich one do you want to save?");
     scanf("%20s", userInput);
-    savedDice = split2(userInput, ",");
+    savedDice = split(userInput, ",");
     printf("You have chosen: ");
     for (savedDice; *savedDice != '\0'; ++savedDice) {
         printf("%s ", *savedDice);
