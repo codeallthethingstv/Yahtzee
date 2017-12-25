@@ -5,8 +5,11 @@
 #ifndef YAHTZEE_PLAYER_H
 #define YAHTZEE_PLAYER_H
 
+#include "Round.h"
+
 typedef struct Player {
     char *name;
+    Rounds *rounds;
 } Player;
 
 typedef struct Playerlist {

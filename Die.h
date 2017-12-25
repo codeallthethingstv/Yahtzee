@@ -9,6 +9,7 @@
 
 typedef struct Die {
     int value;
+    bool saved;
 } Die;
 
 typedef struct Dice {
@@ -16,15 +17,6 @@ typedef struct Dice {
     int size;
 } Dice;
 
-typedef struct Throw {
-    int value;
-    bool saved;
-} Throw;
-
-typedef struct Round {
-    Throw throws[3];
-    int size;
-} Throws;
 
 
 Dice *rollTheDice();

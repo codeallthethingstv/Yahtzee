@@ -6,11 +6,19 @@
 #include "Player.h"
 #include "string.h"
 
+void initPlayer(Player *player, int index);
+
 Playerlist *createPlayerList(int amountOfPlayers) {
     Playerlist *newPlayerlist = malloc(sizeof(Playerlist));
     newPlayerlist->players = malloc(amountOfPlayers * sizeof(Player));
     newPlayerlist->size = amountOfPlayers;
+    forEachPlayerIn(newPlayerlist, initPlayer);
     return newPlayerlist;
+}
+
+void initPlayer(Player *player, int index) {
+    player->rounds = createDefaultRounds();
+    player->name = "not set";
 }
 
 void setPlayerName(Player *player, char *name) {

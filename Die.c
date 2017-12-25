@@ -23,4 +23,5 @@ void forEachDieIn(Dice *dice, void doThis(Die *die, int index)) {
 
 void rollDie(Die *die, int index) {
     die->value = (rand() % 6) + 1;
+    die->saved = false;
 }
